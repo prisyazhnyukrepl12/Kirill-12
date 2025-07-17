@@ -1,0 +1,122 @@
+body {
+    background-color: black;
+    color: green;
+    font-family: 'Courier New', Courier, monospace;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    min-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1,
+h2 {
+    color: greenyellow;
+    text-align: center;
+}
+
+.navbar {
+    border-bottom: 2px solid greenyellow;
+}
+
+.me-2 {
+    width: 5;
+}
+
+.hacker-img {
+    max-width: 50%;
+    height: auto;
+    border: 2px solid greenyellow;
+    box-shadow: 0 0 10px greenyellow;
+}
+
+.story-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.story-text {
+    max-width: 50%;
+    text-align: left;
+}
+
+.btn-primary {
+    background-color: greenyellow;
+    border: none;
+    color: black;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #28cc28;
+}
+
+.hacker-input {
+    background-color: black;
+    border: 1px solid greenyellow;
+    color: greenyellow;
+    padding: 0.5rem;
+    font-family: 'Courier New', monospace;
+}
+
+.hacker-input::placeholder {
+    color: greenyellow;
+    opacity: 0.7;
+}
+
+.hacker-input:focus {
+    background-color: #0d0d0d;
+    border-color: greenyellow;
+    box-shadow: 0 0 5px green;
+    color: green; 
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-label {
+    color: green;
+    margin-bottom: 0.5rem;
+}
+
+.btn-outline-danger {
+    border-color: red;
+    color:rebeccapurple;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-danger:hover {
+    background-color: red;
+    color: azure;
+}
+
+.hacker-input[type="file"] {
+    padding: 0.5rem;
+    border: 1px solid green;
+    color: blue;
+    background-color: black;
+    font-family: 'Courier New', monospace;
+}
+
+.hacker-input[type="file"]::file-selector-button {
+    background-color: chocolate;
+    border: none;
+    color: black;
+    padding: 0.5rem 1rem;
+    font-family: 'Courier New', monospace;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.hacker-input[type="file"]::file-selector-button:hover {
+    background-color: black;
+}
