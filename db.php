@@ -25,7 +25,7 @@
        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
        username VARCHAR(15) NOT NULL,
        email VARCHAR(50) NOT NULL,
-       password VARCHAR(20) NOT NULL
+       pass VARCHAR(20) NOT NULL
    ) ENGINE=InnoDB;";
    
    if (!mysqli_query($link, $sql)) {
