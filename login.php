@@ -29,29 +29,34 @@
 <?php
 require_once('db.php');
 
-if (isset($_COOKIE['User'])) {
-    header("Location: /profile.php");
+// Если уже авторизован — переходим в профиль
+if (isset($_COOKIE['User'])){
+    header(header: "Location: /profile.php");
     exit();
 }
 
+// Подключение к базе данных + выбор базы first
 $link = mysqli_connect('127.0.0.1', 'root', 'kali', 'first');
 
 if (isset($_POST['submit'])) {
     $login = $_POST['login'];
     $pass  = $_POST['password'];
 
-    if (!$login || !$pass) die("input all parameters");
-    
-    $sql = "SELECT * FROM users WHERE username ='$login' AND pass='$pass')";
+    if (!$login || !$pass) die ("input all parameters");
 
-    $result = mysqli_query($link, $sql);
+    $sql = "SELECT * FROM users WHERE username='$login' AND pass='$pass'";
 
-    if (mysqli_num_rows($result) == 1) {
+    // Выполняем запрос и проверяем на ошибки
+    $result = mysqli_query( mysql: $link, query: $sql);
+
+    // Проверяем, найден ли пользователь
+    if (mysqli_num_rows(result: $result) === 1) {
+        // Ставим cookie и переходим в профиль
         setcookie("User", $login, time()+7200);
-        header("Location: /login.php");
+        header("Location: profile.php");
     } else {
         echo 'incorrect username or password';
     }
 }
+
 ?>
-    
