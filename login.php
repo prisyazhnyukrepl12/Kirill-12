@@ -13,7 +13,7 @@
         <div class="row">
             <div class="col-12 text-center">
                 <h1 class="mb-4">Login</h1>
-                <form action="/registration.php" method="POST" class="d-flex flex-column gap-3">
+                <form action="/login.php" method="POST" class="d-flex flex-column gap-3">
                     <input type="text" name="login" class="form-control-hacker-input" placeholder="login">
                     <input type="password" name="password" class="form-control-hacker-input" placeholder="password">
                     <button class="btn btn-primary" type="submit" name="submit">Login</button>
@@ -25,4 +25,33 @@
     </div>
 </body>
 </html>
+
+<?php
+require_once('db.php');
+
+if (isset($_COOKIE['User'])) {
+    header("Location: /profile.php");
+    exit();
+}
+
+$link = mysqli_connect('127.0.0.1', 'root', 'kali', 'first');
+
+if (isset($_POST['submit'])) {
+    $login = $_POST['login'];
+    $pass  = $_POST['password'];
+
+    if (!$login || !$pass) die("input all parameters");
+    
+    $sql = "SELECT * FROM users WHERE username ='$login' AND pass='$pass')";
+
+    $result = mysqli_query($link, $sql);
+
+    if (mysqli_num_rows($result) == 1) {
+        setcookie("User", $login, time()+7200);
+        header("Location: /login.php");
+    } else {
+        echo 'incorrect username or password';
+    }
+}
+?>
     
