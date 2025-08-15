@@ -9,7 +9,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
     <nav class="navbar navbar-dark bg-dark p-3">
         <div class="container-fluid">
@@ -35,13 +34,11 @@
                 enctype="multipart/form-data">
                 <div class="form-group">
                     <label class="form-lable" for="postTitle">Post Title</label><input type="text"
-                        class="form-control hacker-input" name="postTitle" id="postTitle" placeholder="Enter post Title"
-                        required>
+                        class="form-control hacker-input" name="postTitle" id="postTitle" placeholder="Enter post Title" required>
                 </div>
                 <div class="form-group">
                     <label class="form-lable" for="postContent">Post Content</label>
-                    <textarea type="text" name="postContent" id="postContent" rows="5" class="form-control-hacker-input"
-                        placeholder="Enter post Content" required></textarea>
+                    <textarea type="text" name="postContent" id="postContent" rows="5" class="form-control-hacker-input" placeholder="Enter post Content" required></textarea>
                 </div>
                 <div class="form-group">
                     <label class="form-lable" for="file">Upload file</label><input type="file" id="file" name="file"
