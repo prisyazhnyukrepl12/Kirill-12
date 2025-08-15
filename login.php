@@ -40,11 +40,11 @@ $link = mysqli_connect('127.0.0.1', 'root', 'kali', 'first');
 
 if (isset($_POST['submit'])) {
     $login = $_POST['login'];
-    $pass  = $_POST['password'];
+    $passwor  = $_POST['password'];
 
-    if (!$login || !$pass) die ("input all parameters");
+    if (!$login || !$passwor) die ("input all parameters");
 
-    $sql = "SELECT * FROM users WHERE username='$login' AND pass='$pass'";
+    $sql = "SELECT * FROM users WHERE username='$login' AND password='$password'";
 
     // Выполняем запрос и проверяем на ошибки
     $result = mysqli_query( mysql: $link, query: $sql);
