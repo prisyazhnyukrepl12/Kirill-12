@@ -13,7 +13,7 @@
         <div class="row">
             <div class="col-12 text-center">
                 <h1 class="mb-4">Login</h1>
-                <form action="/login.php" method="POST" class="d-flex flex-column gap-3">
+                <form action="/registration.php" method="POST" class="d-flex flex-column gap-3">
                     <input type="text" name="login" class="form-control-hacker-input" placeholder="login">
                     <input type="password" name="password" class="form-control-hacker-input" placeholder="password">
                     <button class="btn btn-primary" type="submit" name="submit">Login</button>
@@ -29,34 +29,30 @@
 <?php
 require_once('db.php');
 
-// Если уже авторизован — переходим в профиль
-if (isset($_COOKIE['User'])){
-    header(header: "Location: /profile.php");
+if (isset($_COOKIE['User'])) {
+    header("Location: /profile.php");
     exit();
 }
 
-// Подключение к базе данных + выбор базы first
 $link = mysqli_connect('127.0.0.1', 'root', 'kali', 'first');
 
 if (isset($_POST['submit'])) {
-    $login = $_POST['login'];
-    $passwor  = $_POST['password'];
+    $login = mysqli_real_escape_string($link, $_POST['login']);
+    $email = mysqli_real_escape_string($link, $_POST['email']);
+    $pass  = mysqli_real_escape_string($link, $_POST['password']);
 
-    if (!$login || !$passwor) die ("input all parameters");
+    if (!$login || !$email || !$pass) {
+        die("input all parameters");
+    }
 
-    $sql = "SELECT * FROM users WHERE username='$login' AND password='$password'";
+    $sql = "INSERT INTO users (username, email, password) VALUES ('$login', '$email', '$pass')";
 
-    // Выполняем запрос и проверяем на ошибки
-    $result = mysqli_query( mysql: $link, query: $sql);
-
-    // Проверяем, найден ли пользователь
-    if (mysqli_num_rows(result: $result) === 1) {
-        // Ставим cookie и переходим в профиль
-        setcookie("User", $login, time()+7200);
-        header("Location: profile.php");
+    if (!mysqli_query($link, $sql)) {
+        echo "Error insert table users: " . mysqli_error($link);
     } else {
-        echo 'incorrect username or password';
+        header("Location: /login.php");
+        exit();
     }
 }
-
 ?>
+    

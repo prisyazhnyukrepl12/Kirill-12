@@ -27,31 +27,33 @@
 </html>
 
 <?php
-require_once('db.php');
 
-if (isset($_COOKIE['User'])) {
-    header("Location: /profile.php");
-    exit();
-}
+   require_once('db.php');
 
-$link = mysqli_connect('127.0.0.1', 'root', 'kali', 'first');
-
-if (isset($_POST['submit'])) {
-    $login = mysqli_real_escape_string($link, $_POST['login']);
-    $email = mysqli_real_escape_string($link, $_POST['email']);
-    $pass  = mysqli_real_escape_string($link, $_POST['password']);
-
-    if (!$login || !$email || !$pass) {
-        die("input all parameters");
+    if(isset($_COOKIE['User'])){
+      header('Location: /profile.php');
+      exit;
     }
 
-    $sql = "INSERT INTO users (username, email, password) VALUES ('$login', '$email', '$pass')";
+    $link = mysqli_connect('127.0.0.1','root','kali','first');
 
-    if (!mysqli_query($link, $sql)) {
-        echo "Error insert table users: " . mysqli_error($link);
-    } else {
-        header("Location: /login.php");
-        exit();
+    if (isset($_POST['submit'])){
+        $login = mysqli_real_escape_string($link, $_POST['login']);
+        $email = mysqli_real_escape_string($link, $_POST['email']);
+        $pass  = mysqli_real_escape_string($link, $_POST['password']);
+
+        if(!$login || !$email || !$pass){
+            die ('input all parameters');
+        }
+              
+        
+        $sql = "INSERT INTO users(username, email, pass) VALUES ('$login', '$email', '$pass')";
+
+        if(!mysqli_query($link, $sql)) {
+            echo "Error insert table users";
+        }else  {
+            header("Location: /login.php");
+            exit();
+        }
     }
-}
 ?>
