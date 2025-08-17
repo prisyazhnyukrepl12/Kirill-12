@@ -28,32 +28,30 @@
 
 <?php
 
-   require_once('db.php');
+require_once('db.php');
 
-    if(isset($_COOKIE['User'])){
-      header('Location: /profile.php');
-      exit;
-    }
+if (isset($_COOKIE['User'])){
+	header("Location: /profile.php");
+	exit();
+}
 
-    $link = mysqli_connect('127.0.0.1','root','kali','first');
+$link = mysqli_connect('db', 'root', 'kali', 'my_website');
 
-    if (isset($_POST['submit'])){
-        $login = mysqli_real_escape_string($link, $_POST['login']);
-        $email = mysqli_real_escape_string($link, $_POST['email']);
-        $pass  = mysqli_real_escape_string($link, $_POST['password']);
+if (isset($_POST['submit'])) {
+	$login = $_POST['login'];
+	$email = $_POST['email'];
+	$pass = $_POST['password'];
 
-        if(!$login || !$email || !$pass){
-            die ('input all parameters');
-        }
-              
-        
-        $sql = "INSERT INTO users(username, email, pass) VALUES ('$login', '$email', '$pass')";
+	if (!$login || !$email || !$pass) die ("input all parameters");
 
-        if(!mysqli_query($link, $sql)) {
-            echo "Error insert table users";
-        }else  {
-            header("Location: /login.php");
-            exit();
-        }
-    }
+	$sql = "INSERT INTO users (username, email, pass) VALUES ('$login', '$email', '$pass')";
+
+	if (!mysqli_query($link, $sql)){
+		echo "Не удалось создать пользователя!";
+	} else {
+		header("Location: /login.php");
+		exit();
+	}
+}
+
 ?>

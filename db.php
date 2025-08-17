@@ -1,49 +1,50 @@
 <?php 
 
-    $server   = "127.0.0.1";
+    $servername   = "127.0.0.1";
     $username = "root";
     $password = "kali";
-    $dbName   = "first";
-   
-    $link = mysqli_connect($server, $username, $password);
+    $db_name   = "first";
 
-    if(!$link){
-        die("Error connect ". mysqli_connect_error());
-    }   
+   $link = mysqli_connect($servername, $username, $password);
 
-    $sql = "CREATE DATABASE IF NOT EXISTS $dbName";
-
-    if (!mysqli_query($link, $sql)) {
-        echo "Error create DB". mysqli_error($link);
+   if (!$link) {
+	 die('Error:' . mysqli_connect());
     }
-   
-    mysqli_close($link);
-   
-   
-   $link = mysqli_connect($server, $username, $password, $dbName);
-   
-   // Создаем таблицу users.
-    $sql = "CREATE TABLE IF NOT EXISTS users(
-      id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-      username VARCHAR(15) NOT NULL,
-      email VARCHAR(50) NOT NULL,
-      pass VARCHAR(20) NOT NULL
-    )";
-   
-    if(!mysqli_query($link, $sql)){
-       echo "Error create table users:". mysqli_error($link);
-    }
-   
-   // Создаем таблицу posts.
-    $sql = "CREATE TABLE IF NOT EXISTS posts(
-     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-     title VARCHAR(20) NOT NULL,
-     main_text VARCHAR(400) NOT NULL
-    )";
-   
+
+
+   $sql = "CREATE DATABASE IF NOT EXISTS $db_name";
+
     if (!mysqli_query($link, $sql)){
-     echo "Error create table posts: ". mysqli_error($link);
+	 echo "Не удалось создать БД!";
     }
-   
-   mysqli_close($link);
+
+    mysqli_close($link);
+
+    $link = mysqli_connect($servername, $username, $password, $db_name);
+
+    $sql = "CREATE TABLE IF NOT EXISTS users(
+	 id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	 username VARCHAR(50) NOT NULL,
+	 email VARCHAR(50) NOT NULL,
+	 pass VARCHAR(50) NOT NULL
+    )";
+
+    if (!mysqli_query($link, $sql)){
+	    echo "Не удалось создать таблицу users!";
+    }
+
+    $sql = "CREATE TABLE IF NOT EXISTS posts(
+	 id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	 title VARCHAR(50) NOT NULL,
+	 main_text VARCHAR(400) NOT NULL,
+	 image_path VARCHAR(100)
+    )";
+
+    if (!mysqli_query($link, $sql)){
+	 echo "Не удалось создать таблицу posts!";
+    }
+
+    mysqli_close($link);
+    
 ?>
+

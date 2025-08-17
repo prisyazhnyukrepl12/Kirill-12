@@ -20,29 +20,31 @@
     </nav>
     <div class="container mt-5">
         <div class="story-container">
-            <p>Well, Prince, so Genoa and Lucca are now just family estates of the Buonapartes. But I warn you, if you
-                don't tell me that this means war, if you still try to defend the infamies and horrors perpetrated by
-                that Antichrist.</p>
+            <diw class="story-text">
+              <p>Well, Prince, so Genoa and Lucca are now just family estates of the Buonapartes. But I warn you, if you don't tell me that this means war, if you still try to defend the infamies and horrors perpetrated by that Antichrist.</p>
+            </div>
             <img src="hecer.webp" alt="hecer" class="hacker-img">
         </div>
-        <div class="text-center mt-4"><button id="toggleButton" class="btn btn-primary">Open</button></div>
-        <div class="mt-3 text-center" id="extraImage" style="display: none;"><img src="herp.webp" alt="head"
-                class="hacker-ing"></div>
+        <div class="text-center mt-4">
+            <button id="toggleButton" class="btn btn-primary">Open</button>
+        </div>
+        <div class="mt-3 text-center" id="extraImage" style="display: none;">
+            <img class="hacker-ing" src="herp.webp" alt="head">
+        </div>
         <div class="mt-5">
             <h2 class="text-center mb-4">Add New Post</h2>
-            <form action="profile.php" nethod="post" id="postForm" class="d-flex flex-column gap-3"
-                enctype="multipart/form-data">
+            <form action="profile.php" nethod="POST" id="postForm" class="d-flex flex-column gap-3" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label class="form-lable" for="postTitle">Post Title</label><input type="text"
-                        class="form-control hacker-input" name="postTitle" id="postTitle" placeholder="Enter post Title" required>
+                    <label class="form-lable" for="postTitle">Post Title</label>
+                    <input type="text" class="form-control hacker-input" name="postTitle" id="postTitle" placeholder="Enter post Title" required>
                 </div>
                 <div class="form-group">
                     <label class="form-lable" for="postContent">Post Content</label>
                     <textarea type="text" name="postContent" id="postContent" rows="5" class="form-control-hacker-input" placeholder="Enter post Content" required></textarea>
                 </div>
                 <div class="form-group">
-                    <label class="form-lable" for="file">Upload file</label><input type="file" id="file" name="file"
-                        class="form-control hacker-input">
+                    <label class="form-lable" for="file">Upload file</label>
+                    <input type="file" name="file" class="form-control hacker-input" id="file">
                 </div>
                 <button class="btn btn-primary" type="submit" name="submit">Save Post</button>
             </form>
