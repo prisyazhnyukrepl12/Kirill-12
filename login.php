@@ -27,32 +27,36 @@
 </html>
 
 <?php
+
 require_once('db.php');
 
-if (isset($_COOKIE['User'])) {
-    header("Location: /profile.php");
-    exit();
+if (isset($_COOKIE['User'])){
+	header("Location: /profile.php");
+	exit();
 }
 
 $link = mysqli_connect('127.0.0.1', 'root', 'kali', 'first');
 
 if (isset($_POST['submit'])) {
-    $login = mysqli_real_escape_string($link, $_POST['login']);
-    $email = mysqli_real_escape_string($link, $_POST['email']);
-    $pass  = mysqli_real_escape_string($link, $_POST['password']);
+	$login = $_POST['login'];
+	$pass = $_POST['password'];
 
-    if (!$login || !$email || !$pass) {
-        die("input all parameters");
-    }
+	if (!$login || !$pass) die ("input all parameters");
 
-    $sql = "INSERT INTO users (username, email, password) VALUES ('$login', '$email', '$pass')";
+	$sql = "SELECT * FROM users WHERE username='$login' AND pass='$pass'";
 
-    if (!mysqli_query($link, $sql)) {
-        echo "Error insert table users: " . mysqli_error($link);
-    } else {
-        header("Location: /login.php");
-        exit();
-    }
+	$result = mysqli_query($link, $sql);
+
+	if (mysqli_num_rows($result) == 1){
+		setcookie("User", $login, time()+7200);
+		header("Location: profile.php");
+	}
+	else {
+		echo "Incorrect username or password";
+	}
+
+
 }
+
 ?>
     
