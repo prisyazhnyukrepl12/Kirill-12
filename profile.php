@@ -16,6 +16,11 @@
                 <img src="log.webp" alt="logo" class="me-2">
                 <span class="text-light">History</span>
             </a>
+            <?php if (isset($_COOKIE['User'])): ?>
+                <form action="/logout.php" method="POST" class="d-flex">
+                    <button class="btn btn-outline-danger" type="submit">logout</button>
+                </form> 
+            <?php endif; ?>       
         </div>
     </nav>
     <div class="container mt-5">
@@ -32,7 +37,7 @@
             <img class="hacker-ing" src="herp.webp" alt="head">
         </div>
         <div class="mt-5">
-            <h2 class="text-center mb-4">Add New Post</h2>
+            <h2 class="text-center mb-4">Add New Post <?php $username1 = $_COOKIE['User']; echo "$username1";?></h2>
             <form action="profile.php" nethod="POST" id="postForm" class="d-flex flex-column gap-3" enctype="multipart/form-data">
                 <div class="form-group">
                     <label class="form-lable" for="postTitle">Post Title</label>

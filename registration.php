@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="css/style.css">
     </head>
 <body>
-    <div class="container d-flex justify-content-center vh-100">
+    <div class="container d-flex justify-content-center align-items-center vh-100">
         <div class="row">
             <div class="col-12 text-center">
                 <h1 class="mb-4">Registration</h1>
@@ -35,7 +35,7 @@ if (isset($_COOKIE['User'])){
 	exit();
 }
 
-$link = mysqli_connect('db', 'root', 'kali', 'my_website');
+$link = mysqli_connect('127.0.0.1', 'root', 'kali', 'first');
 
 if (isset($_POST['submit'])) {
 	$login = $_POST['login'];
