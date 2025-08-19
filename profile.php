@@ -18,7 +18,7 @@
             </a>
             <?php if (isset($_COOKIE['User'])): ?>
                 <form action="/logout.php" method="POST" class="d-flex">
-                    <button class="btn btn-outline-danger" type="submit">logout</button>
+                    <button class="btn btn-outline-danger" type="submit">Logout</button>
                 </form> 
             <?php endif; ?>       
         </div>
