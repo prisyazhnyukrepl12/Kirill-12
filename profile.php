@@ -67,39 +67,73 @@
 </body>
 </html>
 
-
 <?php
-
+// Проверка авторизации
 if (!isset($_COOKIE['User'])) {
     header('Location: /login.php');
     exit();
 }
 
 require_once('db.php');
+
+// Подключение к базе
 $link = mysqli_connect('127.0.0.1', 'root', 'kali', 'first');
+if (!$link) {
+    die("Ошибка подключения к базе данных: " . mysqli_connect_error());
+}
 
-if(isset($_POST['submit'])) {
-    $title = $_POST['postTitle'];
-    $main_text = $_POST['postContent'];
+if (isset($_POST['submit'])) {
+    $title     = $_POST['postTitle'] ?? '';
+    $main_text = $_POST['postContent'] ?? '';
 
-    if (!$title || !$main_text) die("no data post");
+    // Проверка заполненности
+    if (!$title || !$main_text) {
+        die("⚠ Нет данных для добавления поста");
+    }
+
+    // SQL-запрос
     $sql = "INSERT INTO posts (title, main_text) VALUES ('$title', '$main_text')";
+    if (!mysqli_query($link, $sql)) {
+        die("Ошибка вставки данных в таблицу");
+    }
 
-    if (!mysqli_query($link,$sql)) die("error insert data post");
+    // Работа с файлом
+    if (!empty($_FILES["file"]["name"])) {
+        $file     = $_FILES["file"];
+        $filename = basename($file["name"]);
+        $tmpname  = $file["tmp_name"];
+        $filetype = $file["type"];
+        $filesize = $file["size"];
+        $target   = "upload/" . $filename;
 
-    if(!empty($_FILES["file"]))
-    {
-        if (((@$_FILES["file"]["type"] == "image/gif") || (@$_FILES["file"]["type"] == "image/jpeg")
-        || (@$_FILES["file"]["type"] == "image/jpg") || (@$_FILES["file"]["type"] == "image/pjpeg")
-        || (@$_FILES["file"]["type"] == "image/x-png") || (@$_FILES["file"]["type"] == "image/png"))
-        && (@$_FILES["file"]["size"] < 102400))
-        {
-            move_uploaded_file($_FILES["file"]["tmp_name"], "upload/" . $_FILES["file"]["name"]);
-            echo "Load in: " . "upload/" . $_FILES["file"]["name"];
-        }
-        else
-        {
-            echo "upload failed!";
+        // Допустимые форматы
+        $allowed_types = [
+            "image/gif",
+            "image/jpeg",
+            "image/jpg",
+            "image/pjpeg",
+            "image/png",
+            "image/x-png",
+            "image/bmp",
+            "image/x-ms-bmp",
+            "image/webp",
+            "image/tiff",
+            "image/x-tiff",
+            "image/vnd.microsoft.icon",
+            "image/x-icon",
+            "image/svg+xml"
+        ];
+        // Максимум 5 MB (5 * 1024 * 1024 = 5242880 байт)
+        $max_size = 5 * 1024 * 1024; 
+
+        if (in_array($filetype, $allowed_types) && $filesize <= $max_size) {
+            if (move_uploaded_file($tmpname, $target)) {
+                echo "Файл успешно загружен: " . $target;
+            } else {
+                echo "Ошибка при сохранении файла";
+            }
+        } else {
+            echo "Недопустимый формат или размер файла больше 5 MB";
         }
     }
 }
