@@ -9,6 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
     <nav class="navbar navbar-dark bg-dark p-3">
         <div class="container-fluid">
@@ -23,42 +24,49 @@
             <?php endif; ?>       
         </div>
     </nav>
+
     <div class="container mt-5">
-        <div class="story-container">
-            <diw class="story-text">
-              <p>Well, Prince, so Genoa and Lucca are now just family estates of the Buonapartes. But I warn you, if you don't tell me that this means war, if you still try to defend the infamies and horrors perpetrated by that Antichrist.</p>
+        <div class="story-container d-flex flex-column align-items-center">
+            <div class="story-text mb-3 text-center">
+                <p>
+                    Well, Prince, so Genoa and Lucca are now just family estates of the Buonapartes. 
+                    But I warn you, if you don't tell me that this means war, if you still try to 
+                    defend the infamies and horrors perpetrated by that Antichrist.
+                </p>
             </div>
-            <img src="hecer.webp" alt="hecer" class="hacker-img">
-        </div>
-        <div class="text-center mt-4">
+            <img src="hecer.webp" alt="hecer" class="hacker-img mb-3">
             <button id="toggleButton" class="btn btn-primary">Open</button>
+            <div class="mt-3" id="extraImage" style="display: none;">
+                <img class="hacker-img" src="herp.webp" alt="head">
+            </div>
         </div>
-        <div class="mt-3 text-center" id="extraImage" style="display: none;">
-            <img class="hacker-ing" src="herp.webp" alt="head">
-        </div>
+
         <div class="mt-5">
-            <h2 class="text-center mb-4">Add New Post <?php $username1 = $_COOKIE['User']; echo "$username1";?></h2>
-            <form action="profile.php" nethod="POST" id="postForm" class="d-flex flex-column gap-3" enctype="multipart/form-data">
+            <h2 class="text-center mb-4">
+                Add New Post <?php $username1 = $_COOKIE['User']; echo "$username1";?>
+            </h2>
+            <form action="profile.php" method="POST" id="postForm" class="d-flex flex-column gap-3" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label class="form-lable" for="postTitle">Post Title</label>
+                    <label class="form-label" for="postTitle">Post Title</label>
                     <input type="text" class="form-control hacker-input" name="postTitle" id="postTitle" placeholder="Enter post Title" required>
                 </div>
                 <div class="form-group">
-                    <label class="form-lable" for="postContent">Post Content</label>
-                    <textarea type="text" name="postContent" id="postContent" rows="5" class="form-control-hacker-input" placeholder="Enter post Content" required></textarea>
+                    <label class="form-label" for="postContent">Post Content</label>
+                    <textarea name="postContent" id="postContent" rows="5" class="form-control hacker-input" placeholder="Enter post Content" required></textarea>
                 </div>
                 <div class="form-group">
-                    <label class="form-lable" for="file">Upload file</label>
+                    <label class="form-label" for="file">Upload file</label>
                     <input type="file" name="file" class="form-control hacker-input" id="file">
                 </div>
-                <button class="btn btn-primary" type="submit" name="submit">Save Post</button>
+                <button class="btn btn-success" type="submit" name="submit">Save Post</button>
             </form>
         </div>
     </div>
+
     <script src="JS/script.js"></script>
 </body>
-
 </html>
+
 
 <?php
 
