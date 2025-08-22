@@ -1,6 +1,6 @@
 <?php 
 
-    $servername   = "db";
+    $servername = "db";
     $username = "root";
     $password = "kali";
     $db_name   = "first";
