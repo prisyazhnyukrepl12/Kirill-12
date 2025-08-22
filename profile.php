@@ -77,7 +77,7 @@ if (!isset($_COOKIE['User'])) {
 require_once('db.php');
 
 // Подключение к базе
-$link = mysqli_connect('127.0.0.1', 'root', 'kali', 'first');
+$link = mysqli_connect('db', 'root', 'kali', 'first');
 if (!$link) {
     die("Ошибка подключения к базе данных: " . mysqli_connect_error());
 }
