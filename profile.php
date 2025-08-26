@@ -77,63 +77,61 @@ if (!isset($_COOKIE['User'])) {
 require_once('db.php');
 
 // Подключение к базе
-$link = mysqli_connect('db', 'root', 'kali', 'first');
+$link = mysqli_connect('127.0.0.1', 'root', 'kali', 'first');
 if (!$link) {
     die("Ошибка подключения к базе данных: " . mysqli_connect_error());
 }
 
 if (isset($_POST['submit'])) {
-    $title     = $_POST['postTitle'] ?? '';
-    $main_text = $_POST['postContent'] ?? '';
+    $title = mysqli_real_escape_string($link, $_POST['postTitle']);
+    $main_text = mysqli_real_escape_string($link, $_POST['postContent']);
 
     // Проверка заполненности
-    if (!$title || !$main_text) {
-        die("⚠ Нет данных для добавления поста");
-    }
+    if (!$title || !$main_text) die("⚠ Нет данных для добавления поста");
+
+    $title = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
+    $main_text = htmlspecialchars($main_text, ENT_QUOTES, 'UTF-8');
 
     // SQL-запрос
     $sql = "INSERT INTO posts (title, main_text) VALUES ('$title', '$main_text')";
-    if (!mysqli_query($link, $sql)) {
-        die("Ошибка вставки данных в таблицу");
-    }
+    if (!mysqli_query($link, $sql)) die("Ошибка вставки данных в таблицу");
 
     // Работа с файлом
     if (!empty($_FILES["file"]["name"])) {
-        $file     = $_FILES["file"];
-        $filename = basename($file["name"]);
-        $tmpname  = $file["tmp_name"];
-        $filetype = $file["type"];
-        $filesize = $file["size"];
-        $target   = "upload/" . $filename;
+        $errors = [];
+        $allowedTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/webp'];
+        $maxFileSize = 102400; // 100 KB
 
-        // Допустимые форматы
-        $allowed_types = [
-            "image/gif",
-            "image/jpeg",
-            "image/jpg",
-            "image/pjpeg",
-            "image/png",
-            "image/x-png",
-            "image/bmp",
-            "image/x-ms-bmp",
-            "image/webp",
-            "image/tiff",
-            "image/x-tiff",
-            "image/vnd.microsoft.icon",
-            "image/x-icon",
-            "image/svg+xml"
-        ];
-        // Максимум 5 MB (5 * 1024 * 1024 = 5242880 байт)
-        $max_size = 5 * 1024 * 1024; 
+        // Проверка ошибок загрузки
+        if ($_FILES['file']['error'] !== UPLOAD_ERR_OK) {
+            $errors[] = "Ошибка загрузки: " . $_FILES['file']['error'];
+        }
+        // Проверка фактического размера файла
+        $realFileSize = filesize($_FILES['file']['tmp_name']);
+        if ($realFileSize > $maxFileSize) {
+            $errors[] = "Файл превышает допустимый размер (100 KB)";
+        }
 
-        if (in_array($filetype, $allowed_types) && $filesize <= $max_size) {
-            if (move_uploaded_file($tmpname, $target)) {
-                echo "Файл успешно загружен: " . $target;
+        // Проверка MIME-типов через finfo
+        $fileType = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $_FILES['file']['tmp_name']);
+        if (!in_array($fileType, $allowedTypes)) {
+            $errors[] = "Недопустимый тип файла: $fileType";
+        }
+        // Если ошибок нет — сохраняем
+        if (empty($errors)) {
+            $tempPath = $_FILES['file']['tmp_name'];
+            $destinationPath = 'upload/' . uniqid() . '_' . basename($_FILES['file']['name']);
+            if (move_uploaded_file($tempPath, $destinationPath)) {
+                echo 'Файл загружен: ' . $destinationPath;
             } else {
-                echo "Ошибка при сохранении файла";
+                $errors[] = 'Не удалось переместить файл';
             }
-        } else {
-            echo "Недопустимый формат или размер файла больше 5 MB";
+        }
+        // Вывод ошибок
+        if (!empty($errors)) {
+            foreach ($errors as $error) {
+                echo $error . '<br>';
+            }
         }
     }
 }

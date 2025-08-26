@@ -4,16 +4,9 @@ ENV TZ=Europe/London
 
 RUN ln -sf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-RUN apt-get update && apt-get install -y \
-    apache2 \
-    php \
-    libapache2-mod-php \
-    php-mysql \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get -y install apache2 php libapache2-mod-php php-mysql
 
 RUN rm -rf /var/www/html/*
-
 COPY ./ /var/www/html
 RUN chown -R www-data:www-data /var/www/html/
 

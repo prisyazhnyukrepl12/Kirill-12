@@ -1,0 +1,13 @@
+{
+    "Fog domain": "inext-agents.cloud.ngen.checkpoint.com",
+    "Agent ID": "f3712052-6862-4783-b95f-c66178e0e908",
+    "Fog port": 443,
+    "Tenant ID": "org_Zv3LI0PfnGzvBrt6",
+    "Profile ID": "cecc68fb-5eb8-e428-4997-2e913b2abefe",
+    "Encrypted connection": true,
+    "OpenSSL certificates directory": "",
+    "Proxy": "",
+    "Cluster ID": "",
+    "Orchestration mode": "online_mode",
+    "Is Offline Mode": false
+}

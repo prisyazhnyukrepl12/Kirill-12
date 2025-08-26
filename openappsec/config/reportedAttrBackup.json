@@ -1,0 +1,7 @@
+{
+    "attributes": {
+        "AppSecModelVersion": "Simple model, V1.0",
+        "kernel_version": "6.12.33+kali-amd64",
+        "os_release": "Alpine Linux v3.22"
+    }
+}

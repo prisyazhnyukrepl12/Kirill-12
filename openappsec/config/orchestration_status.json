@@ -1,0 +1,28 @@
+{
+    "Last update attempt": "2025-08-25T11:51:16.529077",
+    "Last update status": "Failed. Reason: Failed during check update. Error: Data error: Failed to download file from inext-agents.cloud.ngen.checkpoint.com. Error: Failed to get file over HTTPS. URL: https://inext-agents.cloud.ngen.checkpoint.com/download/resources/geo-db/latest/geo_db.mmdb:443",
+    "Last update": "2025-08-25T11:51:16.559119",
+    "Last manifest update": "2025-08-25T11:18:04.632906",
+    "Policy version": "2",
+    "Last policy update": "2025-08-25T11:20:00.232685",
+    "Last settings update": "2025-08-25T11:18:04.632906",
+    "Upgrade mode": "automatic",
+    "Fog address": "https://inext-agents.cloud.ngen.checkpoint.com",
+    "Registration status": "Succeeded ",
+    "Registration details": {
+        "Name": "05a4586ec607",
+        "Type": "InfinityNextDocker",
+        "Platform": "alpine",
+        "Architecture": "x86_64"
+    },
+    "Agent ID": "54ed1c0f-e0db-4a1d-81c4-28a3c6d62c50",
+    "Profile ID": "cecc68fb-5eb8-e428-4997-2e913b2abefe",
+    "Tenant ID": "org_Zv3LI0PfnGzvBrt6",
+    "Manifest status": "Succeeded ",
+    "Service policy": {
+        "notification": "/etc/cp/conf/notification/notification.policy",
+        "registration-data": "/etc/cp/conf/registration-data/registration-data.policy",
+        "versions": "/etc/cp/conf/versions/versions.policy"
+    },
+    "Service settings": {}
+}
